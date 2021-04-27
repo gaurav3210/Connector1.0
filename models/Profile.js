@@ -4,7 +4,7 @@ const ProfileSchema = new mongoose.Schema({
 
      user: {
          type: mongoose.Schema.Types.ObjectId,
-         ref: user
+         ref: 'user'
      },
     company: {
          type: String
@@ -107,7 +107,7 @@ const ProfileSchema = new mongoose.Schema({
 
         date: {
              type: Date,
-            default: Date.now();
+            default: Date.now()
         }
 
 
