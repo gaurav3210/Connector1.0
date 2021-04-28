@@ -282,6 +282,8 @@ router.put('/education',[auth,
 // @desc   delete profile education
 // @access Private
 router.delete('/education/:edu_id', auth,async (req,res) =>{
+
+
     try{
         const profile = await Profile.findOne({user: req.user.id});
 
@@ -298,7 +300,7 @@ router.delete('/education/:edu_id', auth,async (req,res) =>{
 // @route  GET api/profile/github/:username
 // @desc   Get user repos from Github
 // @access Public
-router.get('/github/:username',(req,res)=>{
+router.get('/github/:username',auth,async (req,res)=>{
     try{
         const options = {
             url: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc` +
@@ -308,7 +310,11 @@ router.get('/github/:username',(req,res)=>{
         };
 
         request(options,(error,response,body)=>{
-            if(error)console.error(error);
+            if(error) {
+                console.error(error);
+                res.status(500).send('Server Error');
+
+            }
 
             if(response.statusCode!==200){
               return res.status(404).json({msg:'No Github account found'});
