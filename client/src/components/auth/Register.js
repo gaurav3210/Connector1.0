@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {setAlert} from "../../actions/alert";
 import  PropTypes from 'prop-types';
 import axios from "axios";
-const Register = (props) => {
+const Register = ({setAlert}) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -16,7 +16,7 @@ const Register = (props) => {
     const onSubmit = async e =>{
         e.preventDefault();
         if(password!==password2){
-            props.setAlert("Passwords do not match", 'danger');
+            setAlert("Passwords do not match", 'danger');
         }else
         {
             // const newUser ={
@@ -52,8 +52,7 @@ const Register = (props) => {
                     <input type="email" placeholder="Email Address" name="email" value={email} onChange={e=>onChange(e)}/>
                     <small className="form-text"
                     >This site uses Gravatar so if you want a profile image, use a
-                        Gravatar email</small
-                    >
+                        Gravatar email</small>
                 </div>
                 <div className="form-group">
                     <input
@@ -83,6 +82,6 @@ const Register = (props) => {
 };
 
 Register.propTypes = {
-    setAlert: PropTypes.func.isRequired;
+    setAlert: PropTypes.func.isRequired
 }
 export default connect(null, {setAlert})(Register);
