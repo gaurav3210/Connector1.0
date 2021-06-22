@@ -2,9 +2,10 @@ import React,{Fragment, useState } from "react";
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {setAlert} from "../../actions/alert";
+import {register} from "../../actions/auth";
 import  PropTypes from 'prop-types';
 import axios from "axios";
-const Register = ({setAlert}) => {
+const Register = ({setAlert,register}) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -15,8 +16,9 @@ const Register = ({setAlert}) => {
     const onChange = e =>setFormData({...formData,[e.target.name]: e.target.value})
     const onSubmit = async e =>{
         e.preventDefault();
-        if(password!==password2){
-            setAlert("Passwords do not match", 'danger');
+        if(password !== password2){
+            console.log("passwords not match");
+            setAlert('Passwords do not match', 'danger');
         }else
         {
             // const newUser ={
@@ -37,14 +39,14 @@ const Register = ({setAlert}) => {
             // }catch (e) {
             //    console.error(e.response.data);
             // }
-            console.log("SUCCESS");
+             register({name,email,password});
         }
-    }
+    };
     return (
         <Fragment>
             <h1 className="large text-primary">Sign Up</h1>
             <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
-            <form className="form" onSubmit={e=> onSubmit(e)}>
+            <form className='form' onSubmit={e=> onSubmit(e)}>
                 <div className="form-group">
                     <input type="text" placeholder="Name" name="name" value={name} onChange={e=>onChange(e)} required/>
                 </div>
@@ -82,6 +84,7 @@ const Register = ({setAlert}) => {
 };
 
 Register.propTypes = {
-    setAlert: PropTypes.func.isRequired
-}
-export default connect(null, {setAlert})(Register);
+    setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired
+};
+export default connect(null, {setAlert,register})(Register);
