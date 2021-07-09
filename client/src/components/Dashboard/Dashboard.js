@@ -4,19 +4,27 @@ import {connect} from "react-redux";
 import {getCurrentProfile} from "../../actions/profile";
 import  Spinner from '../layout/Spinner';
 import {Link} from "react-router-dom";
+import Experience from "./Experience";
+import Education from "./Education"
 import DashboardEdit from "./DashboardEdit";
 const Dashboard = ({getCurrentProfile,auth:{user},profile:{profile,loading}}) => {
     useEffect(() => {getCurrentProfile();},
         []);
+
+
     return loading && profile === null?<Spinner/>:(<Fragment>
         <h1 className="large text-primary">Dashboard</h1>
         <p className="lead">
             <i className="fas fa-user"></i>Welcome {user && user.name}
         </p>
         {profile !== null? (
+
             <Fragment>
 
                <DashboardEdit/>
+                <Experience experience={profile.profile.experience}/>
+                <Education education={profile.profile.education}/>
+
                 </Fragment>):
             (<Fragment>
                     <p> You have not yet setup Profile,please add some information about yourself</p>
