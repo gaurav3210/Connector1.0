@@ -11,7 +11,7 @@ const Dashboard = ({getCurrentProfile,auth:{user},profile:{profile,loading}}) =>
     useEffect(() => {getCurrentProfile();},
         []);
 
-
+     console.log("1",profile)
     return loading && profile === null?<Spinner/>:(<Fragment>
         <h1 className="large text-primary">Dashboard</h1>
         <p className="lead">
@@ -22,6 +22,7 @@ const Dashboard = ({getCurrentProfile,auth:{user},profile:{profile,loading}}) =>
             <Fragment>
 
                <DashboardEdit/>
+
                 <Experience experience={profile.profile.experience}/>
                 <Education education={profile.profile.education}/>
 
